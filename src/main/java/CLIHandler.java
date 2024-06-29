@@ -1,3 +1,6 @@
+import Commands.BuiltInCommands;
+import Commands.CommandFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
@@ -15,16 +18,12 @@ public class CLIHandler {
             System.out.println(fetchRemainingCommand(Arrays.stream(commandsParts).skip(1).toArray(String[]::new)));
             return;
         }
-        if (commandsParts[0].equals("type")) {
-            String command = fetchRemainingCommand(Arrays.stream(commandsParts).skip(1).toArray(String[]::new));
-            if(validStrings.contains(command.trim())){
-                System.out.println(command.trim() + " is a shell builtin");
-            } else {
-                System.out.println(command.trim() + ": not found");
-            }
+        BuiltInCommands command = CommandFactory.getCommand(input);
+        if(command == null) {
+            System.out.println(input + ": command not found");
             return;
         }
-        System.out.println(input + ": command not found");
+        command.execute();
     }
 
     private static String fetchRemainingCommand(String[] commandParts) {
