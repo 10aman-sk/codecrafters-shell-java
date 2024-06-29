@@ -15,6 +15,10 @@ public class cmdCommand extends Commands {
     public boolean execute() {
         String[] commandsParts = input.split(" ");
         String path = fetchRemainingCommand(Arrays.stream(commandsParts).skip(1).toArray(String[]::new)).trim();
+        if (path.startsWith("~")) {
+            currentDirPath = System.getenv("HOME");
+            return true;
+        }
         Path newPath = null;
         if (path.startsWith("/")) {
             newPath = Path.of(path);
@@ -24,6 +28,7 @@ public class cmdCommand extends Commands {
             try {
                 newPath = Path.of(newFile.getCanonicalPath());
             } catch (IOException e) {
+                System.out.println("Caught exception while file creation and path fetch phase");
             }
         }
         if (!Files.exists(newPath)) {
