@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class TypeCmd extends Commands {
-    static Set<String> validStrings = Set.of("type", "echo", "exit", "pwd");
+    static Set<String> validStrings = Set.of("type", "echo", "exit", "pwd", "cd");
 
     public TypeCmd(String input) {
         super(input);

@@ -11,7 +11,8 @@ public class CommandFactory {
                 return new TypeCmd(input);
             case "pwd":
                 return new pwdCmd(input);
-
+            case "cd":
+                return new cmdCommand(input);
         }
         return new NonBuiltInCommands(input);
     }
