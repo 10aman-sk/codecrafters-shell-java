@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Set;
 
-public class TypeCmd extends BuiltInCommands {
+public class TypeCmd extends Commands {
     static Set<String> validStrings = Set.of("type", "echo", "exit");
 
     public TypeCmd(String input) {
@@ -13,21 +13,22 @@ public class TypeCmd extends BuiltInCommands {
     }
 
     @Override
-    public void execute() {
+    public boolean execute() {
         String[] commandsParts = input.split(" ");
         String command = fetchRemainingCommand(Arrays.stream(commandsParts).skip(1).toArray(String[]::new)).trim();
         if(validStrings.contains(command.trim())){
             System.out.println(command.trim() + " is a shell builtin");
-            return;
+            return true;
         }
         String[] paths = System.getenv("PATH").split(":");
         for (String path : paths) {
             Path filePath = Path.of(path + "/" + command);
             if (Files.exists(filePath)) {
                 System.out.println(command + " is " + path + "/" + command);
-                return;
+                return true;
             }
         }
         System.out.println(command + ": not found");
+        return true;
     }
 }

@@ -1,13 +1,13 @@
 package Commands;
 
-public abstract class BuiltInCommands {
+public abstract class Commands {
     String input;
 
-    public BuiltInCommands(String input) {
+    public Commands(String input) {
         this.input = input;
     }
 
-    public abstract void execute();
+    public abstract boolean execute();
 
     protected String fetchRemainingCommand(String[] commandParts) {
         StringBuilder sb = new StringBuilder();

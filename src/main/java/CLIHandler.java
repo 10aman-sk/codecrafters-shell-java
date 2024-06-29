@@ -1,9 +1,6 @@
-import Commands.BuiltInCommands;
+import Commands.Commands;
 import Commands.CommandFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -18,12 +15,12 @@ public class CLIHandler {
             System.out.println(fetchRemainingCommand(Arrays.stream(commandsParts).skip(1).toArray(String[]::new)));
             return;
         }
-        BuiltInCommands command = CommandFactory.getCommand(input);
-        if(command == null) {
-            System.out.println(input + ": command not found");
-            return;
+        Commands command = CommandFactory.getCommand(input);
+        if(command != null) {
+             if(!command.execute()) {
+                 System.out.println(input + ": command not found");
+             }
         }
-        command.execute();
     }
 
     private static String fetchRemainingCommand(String[] commandParts) {
