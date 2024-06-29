@@ -2,9 +2,11 @@ package Commands;
 
 public abstract class Commands {
     String input;
+    String currentDirPath;
 
     public Commands(String input) {
         this.input = input;
+        currentDirPath = System.getProperty("user.dir");
     }
 
     public abstract boolean execute();

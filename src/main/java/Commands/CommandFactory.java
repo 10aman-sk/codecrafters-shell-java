@@ -6,6 +6,13 @@ public class CommandFactory {
         if (commandsParts[0].equals("type")) {
             return new TypeCmd(input);
         }
+        switch (commandsParts[0]) {
+            case "type":
+                return new TypeCmd(input);
+            case "pwd":
+                return new pwdCmd(input);
+
+        }
         return new NonBuiltInCommands(input);
     }
 }
